@@ -17,6 +17,38 @@
   <body>
     <script type="text/javascript" src="helpers/renderers.lib.js"></script>
     <script type="text/javascript">
+      class Network {
+        hidden;
+        output;
+        biases;
+
+        constructor(biases = [], weights = [], activatorFn) {
+          this.biases = biases;
+          this.weights = weights;
+
+          const h1Weights = [this.weights[0], this.weights[1]];
+          const h2Weights = [this.weights[2], this.weights[3]];
+          const o1Weights = [this.weights[4], this.weights[5]];
+
+          this.hidden = [
+            new Neuron(biases[0], h1Weights, activatorFn),
+            new Neuron(biases[1], h2Weights, activatorFn)
+          ];
+
+          this.output = new Neuron(biases[2], o1Weights, activatorFn);
+        }
+
+        query(input = []) {
+          let params = [];
+
+          for (let h = 0; h < this.hidden.length; h++) {
+            params.push(this.hidden[h].activate(input));
+          }
+
+          return this.output.activate(params);
+        }
+      }
+
       class Neuron {
         bias;
         weights;
@@ -57,13 +89,13 @@
         }
       }
 
-      const b = 0;
-      const w = [0, 1];
+      const b = [0, 0, 0, 0, 0, 0];
+      const w = [1, 1, 1, 1, 1, 1];
 
-      const n = new Neuron(b, w, Math.sigmoid);
+      const nn = new Network(b, w, Math.sigmoid);
 
       console.log("run");
-      console.log(n.activate([2, 3]));
+      console.log(nn.query([2, 3]));
     </script>
   </body>
 </html>
