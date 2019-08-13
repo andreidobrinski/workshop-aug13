@@ -31,7 +31,7 @@
           this.activatorFn = activatorFn;
         }
 
-        activate(inputs = []) {
+        sum(inputs = []) {
           let output = 0;
           let buffer = [];
 
@@ -44,6 +44,12 @@
           }
 
           output = output + this.bias;
+
+          return output;
+        }
+
+        activate(inputs = []) {
+          let output = this.sum(inputs);
 
           let result = this.activatorFn(output);
 
