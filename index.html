@@ -25,6 +25,12 @@
           throw new Error("not implemented");
         };
 
+        constructor(bias = 0, weight = [], activatorFn) {
+          this.bias = bias;
+          this.weights = weights;
+          this.activatorFn = activatorFn;
+        }
+
         activate(inputs = []) {
           let output = 0;
           let buffer = [];
