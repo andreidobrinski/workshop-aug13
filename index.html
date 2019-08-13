@@ -25,7 +25,7 @@
           throw new Error("not implemented");
         };
 
-        constructor(bias = 0, weight = [], activatorFn) {
+        constructor(bias = 0, weights = [], activatorFn) {
           this.bias = bias;
           this.weights = weights;
           this.activatorFn = activatorFn;
@@ -57,11 +57,10 @@
         }
       }
 
-      const n = new Neuron();
+      const b = 0;
+      const w = [0, 1];
 
-      n.weights = [0, 1];
-      n.bias = 0;
-      n.activatorFn = Math.sigmoid;
+      const n = new Neuron(b, w, Math.sigmoid);
 
       console.log("run");
       console.log(n.activate([2, 3]));
